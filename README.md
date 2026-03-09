@@ -1,4 +1,4 @@
-# 📋 Task Manager
+# 📋 Gerenciador de Tarefas - API RESTful
 
 ![Java](https://img.shields.io/badge/Java-17-red?logo=openjdk)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.0.1-brightgreen?logo=springboot)
