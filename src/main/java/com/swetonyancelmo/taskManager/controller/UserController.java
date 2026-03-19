@@ -11,7 +11,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,18 +54,6 @@ public class UserController {
     public ResponseEntity<UserResponseDTO> findById(@PathVariable Long id) {
         User user = userService.findById(id);
         return ResponseEntity.ok(userMapper.toResponseDTO(user));
-    }
-
-    @PostMapping
-    @Operation(summary = "Cadastra um usuário", description = "Faz o cadastro de um usuário")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Usuário cadastrado"),
-            @ApiResponse(responseCode = "400", description = "Erro ao cadastrar o usuário"),
-            @ApiResponse(responseCode = "401", description = "Não autenticado")
-    })
-    public ResponseEntity<UserResponseDTO> create(@Valid @RequestBody CreateUserRequestDTO dto) {
-        User newUser = userService.create(dto);
-        return new ResponseEntity<>(userMapper.toResponseDTO(newUser), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
