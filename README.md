@@ -220,7 +220,7 @@ A API utiliza autenticação JWT (JSON Web Token). Para acessar os endpoints pro
 
 ```java
 {
-  "id": Long,
+  "id": UUID,
   "username": String (3-100 caracteres),
   "email": String (único, formato email),
   "password": String (8-20 caracteres, criptografado)
@@ -231,7 +231,7 @@ A API utiliza autenticação JWT (JSON Web Token). Para acessar os endpoints pro
 
 ```java
 {
-  "id": Long,
+  "id": UUID,
   "title": String (3-100 caracteres, obrigatório),
   "description": String (máximo 255 caracteres),
   "completed": Boolean (default: false),
@@ -293,7 +293,7 @@ curl -X GET http://localhost:8080/tasks \
 ### 5. Marcar tarefa como concluída
 
 ```bash
-curl -X PATCH http://localhost:8080/tasks/1 \
+curl -X PATCH http://localhost:8080/tasks/123e4567-e89b-12d3-a456-426614174000 \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 ```
 

@@ -8,6 +8,7 @@ import com.swetonyancelmo.taskManager.models.Task;
 import com.swetonyancelmo.taskManager.models.User;
 import com.swetonyancelmo.taskManager.service.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,6 +20,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -53,7 +55,7 @@ public class TaskController {
             @ApiResponse(responseCode = "404", description = "Tarefa não encontrada"),
             @ApiResponse(responseCode = "401", description = "Não autenticado")
     })
-    public ResponseEntity<TaskResponseDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<TaskResponseDTO> findById(@PathVariable UUID id) {
         Task taskFound = taskService.findById(id);
         return ResponseEntity.ok(taskMapper.convertToResponseDTO(taskFound));
     }
@@ -66,7 +68,7 @@ public class TaskController {
             @ApiResponse(responseCode = "401", description = "Não autenticado")
     })
     public ResponseEntity<TaskResponseDTO> create(@RequestBody @Valid CreateTaskRequestDTO dto,
-                                                  @AuthenticationPrincipal User userLogged) {
+                                                  @Parameter(hidden = true) @AuthenticationPrincipal User userLogged) {
         Task newTask = taskService.create(dto, userLogged);
         return new ResponseEntity<>(taskMapper.convertToResponseDTO(newTask), HttpStatus.CREATED);
     }
@@ -79,7 +81,7 @@ public class TaskController {
             @ApiResponse(responseCode = "400", description = "Erro ao atualizar a tarefa"),
             @ApiResponse(responseCode = "401", description = "Não autenticado")
     })
-    public ResponseEntity<TaskResponseDTO> update(@RequestBody @Valid UpdateTaskRequestDTO dto, @PathVariable Long id) {
+    public ResponseEntity<TaskResponseDTO> update(@RequestBody @Valid UpdateTaskRequestDTO dto, @PathVariable UUID id) {
         Task updatedTask = taskService.update(id, dto);
         return ResponseEntity.ok(taskMapper.convertToResponseDTO(updatedTask));
     }
@@ -91,7 +93,7 @@ public class TaskController {
             @ApiResponse(responseCode = "404", description = "Tarefa não encontrada"),
             @ApiResponse(responseCode = "401", description = "Não autenticado")
     })
-    public ResponseEntity<TaskResponseDTO> conclude(@PathVariable Long id) {
+    public ResponseEntity<TaskResponseDTO> conclude(@PathVariable UUID id) {
         Task concludeTask = taskService.concludeTask(id);
         return ResponseEntity.ok(taskMapper.convertToResponseDTO(concludeTask));
     }
@@ -103,7 +105,7 @@ public class TaskController {
             @ApiResponse(responseCode = "404", description = "Tarefa não encontrada"),
             @ApiResponse(responseCode = "401", description = "Não autenticado")
     })
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
         taskService.delete(id);
         return ResponseEntity.noContent().build();
     }

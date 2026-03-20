@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -28,7 +29,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User findById(Long id) {
+    public User findById(UUID id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário com o ID " + id + " não encontrado."));
     }
@@ -44,14 +45,14 @@ public class UserService {
         return userRepository.save(newUser);
     }
 
-    public User update(Long id, CreateUserRequestDTO dto) {
+    public User update(UUID id, CreateUserRequestDTO dto) {
         User existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário com o ID " + id + " não encontrado."));
         userMapper.updateEntityFromDto(dto, existingUser);
         return userRepository.save(existingUser);
     }
 
-    public void delete(Long id) {
+    public void delete(UUID id) {
         userRepository.deleteById(id);
     }
 }

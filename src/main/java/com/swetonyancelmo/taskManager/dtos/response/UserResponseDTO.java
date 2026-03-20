@@ -1,6 +1,7 @@
 package com.swetonyancelmo.taskManager.dtos.response;
 
 import com.swetonyancelmo.taskManager.models.User;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserResponseDTO {
 
-    private Long id;
+    private UUID id;
     private String username;
     private String email;
 

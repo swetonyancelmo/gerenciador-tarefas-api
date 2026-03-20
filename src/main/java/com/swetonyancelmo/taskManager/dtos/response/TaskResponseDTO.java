@@ -1,6 +1,7 @@
 package com.swetonyancelmo.taskManager.dtos.response;
 
 import com.swetonyancelmo.taskManager.models.Task;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class TaskResponseDTO {
 
-    private Long id;
+    private UUID id;
     private String title;
     private String description;
     private boolean completed;
