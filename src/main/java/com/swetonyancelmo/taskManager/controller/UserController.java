@@ -11,7 +11,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,20 +57,8 @@ public class UserController {
         return ResponseEntity.ok(userMapper.toResponseDTO(user));
     }
 
-    @PostMapping
-    @Operation(summary = "Cadastra um usuário", description = "Faz o cadastro de um usuário")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Usuário cadastrado"),
-            @ApiResponse(responseCode = "400", description = "Erro ao cadastrar o usuário"),
-            @ApiResponse(responseCode = "401", description = "Não autenticado")
-    })
-    public ResponseEntity<UserResponseDTO> create(@Valid @RequestBody CreateUserRequestDTO dto) {
-        User newUser = userService.create(dto);
-        return new ResponseEntity<>(userMapper.toResponseDTO(newUser), HttpStatus.CREATED);
-    }
-
     @PutMapping("/{id}")
-    @Operation(summary = "Cadastra um usuário", description = "Faz o cadastro de um usuário")
+    @Operation(summary = "Atualiza um usuário", description = "Faz a atualização de um usuário")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Usuário atualizado"),
             @ApiResponse(responseCode = "404", description = "Usuário não encontrado"),
@@ -84,7 +71,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "Cadastra um usuário", description = "Faz o cadastro de um usuário")
+    @Operation(summary = "Deleta um usuário", description = "Deleta um usuário")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Usuário deletado"),
             @ApiResponse(responseCode = "404", description = "Usuário não encontrado"),
