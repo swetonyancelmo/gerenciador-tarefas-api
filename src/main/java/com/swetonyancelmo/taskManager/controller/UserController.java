@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -52,7 +51,7 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "Usuário não encontrado"),
             @ApiResponse(responseCode = "401", description = "Não autenticado")
     })
-    public ResponseEntity<UserResponseDTO> findById(@PathVariable UUID id) {
+    public ResponseEntity<UserResponseDTO> findById(@PathVariable Long id) {
         User user = userService.findById(id);
         return ResponseEntity.ok(userMapper.toResponseDTO(user));
     }
@@ -65,7 +64,7 @@ public class UserController {
             @ApiResponse(responseCode = "400", description = "Erro ao atualizar o usuário"),
             @ApiResponse(responseCode = "401", description = "Não autenticado")
     })
-    public ResponseEntity<UserResponseDTO> update(@PathVariable UUID id, @Valid @RequestBody CreateUserRequestDTO dto) {
+    public ResponseEntity<UserResponseDTO> update(@PathVariable Long id, @Valid @RequestBody CreateUserRequestDTO dto) {
         User userUpdated = userService.update(id, dto);
         return ResponseEntity.ok(userMapper.toResponseDTO(userUpdated));
     }
@@ -77,7 +76,7 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "Usuário não encontrado"),
             @ApiResponse(responseCode = "401", description = "Não autenticado")
     })
-    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         userService.delete(id);
         return ResponseEntity.noContent().build();
     }

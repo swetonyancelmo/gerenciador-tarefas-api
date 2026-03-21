@@ -231,7 +231,7 @@ A API utiliza autenticação JWT (JSON Web Token). Para acessar os endpoints pro
 
 ```java
 {
-  "id": UUID,
+  "id": 1,
   "title": String (3-100 caracteres, obrigatório),
   "description": String (máximo 255 caracteres),
   "completed": Boolean (default: false),
@@ -392,4 +392,3 @@ Verifique se:
 ---
 
 **Desenvolvido com ❤️ usando Spring Boot**
-

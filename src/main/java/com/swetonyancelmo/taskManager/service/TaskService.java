@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class TaskService {
@@ -22,7 +21,7 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
-    public Task findById(UUID id) {
+    public Task findById(Long id) {
         return taskRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Tarefa com ID " + id + " não encontrada."));
     }
@@ -36,7 +35,7 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
-    public Task update(UUID id, UpdateTaskRequestDTO dto) {
+    public Task update(Long id, UpdateTaskRequestDTO dto) {
         Task taskExistings = taskRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Tarefa com ID " + id + " não encontrada."));
 
@@ -47,7 +46,7 @@ public class TaskService {
         return taskRepository.save(taskExistings);
     }
 
-    public Task concludeTask(UUID id) {
+    public Task concludeTask(Long id) {
         Task taskExistings = taskRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Tarefa com ID " + id + " não encontrada."));
         taskExistings.setCompleted(true);
@@ -55,7 +54,7 @@ public class TaskService {
         return taskRepository.save(taskExistings);
     }
 
-    public void delete(UUID id) {
+    public void delete(Long id) {
         taskRepository.deleteById(id);
     }
 }

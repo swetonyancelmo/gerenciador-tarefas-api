@@ -20,7 +20,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -55,7 +54,7 @@ public class TaskController {
             @ApiResponse(responseCode = "404", description = "Tarefa não encontrada"),
             @ApiResponse(responseCode = "401", description = "Não autenticado")
     })
-    public ResponseEntity<TaskResponseDTO> findById(@PathVariable UUID id) {
+    public ResponseEntity<TaskResponseDTO> findById(@PathVariable Long id) {
         Task taskFound = taskService.findById(id);
         return ResponseEntity.ok(taskMapper.convertToResponseDTO(taskFound));
     }
@@ -81,7 +80,7 @@ public class TaskController {
             @ApiResponse(responseCode = "400", description = "Erro ao atualizar a tarefa"),
             @ApiResponse(responseCode = "401", description = "Não autenticado")
     })
-    public ResponseEntity<TaskResponseDTO> update(@RequestBody @Valid UpdateTaskRequestDTO dto, @PathVariable UUID id) {
+    public ResponseEntity<TaskResponseDTO> update(@RequestBody @Valid UpdateTaskRequestDTO dto, @PathVariable Long id) {
         Task updatedTask = taskService.update(id, dto);
         return ResponseEntity.ok(taskMapper.convertToResponseDTO(updatedTask));
     }
@@ -93,7 +92,7 @@ public class TaskController {
             @ApiResponse(responseCode = "404", description = "Tarefa não encontrada"),
             @ApiResponse(responseCode = "401", description = "Não autenticado")
     })
-    public ResponseEntity<TaskResponseDTO> conclude(@PathVariable UUID id) {
+    public ResponseEntity<TaskResponseDTO> conclude(@PathVariable Long id) {
         Task concludeTask = taskService.concludeTask(id);
         return ResponseEntity.ok(taskMapper.convertToResponseDTO(concludeTask));
     }
@@ -105,7 +104,7 @@ public class TaskController {
             @ApiResponse(responseCode = "404", description = "Tarefa não encontrada"),
             @ApiResponse(responseCode = "401", description = "Não autenticado")
     })
-    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         taskService.delete(id);
         return ResponseEntity.noContent().build();
     }
